@@ -1,3 +1,4 @@
 author: eastrocky
-application: zine
-version: 1.0
+application:
+  name: magazine
+  version: 1.0

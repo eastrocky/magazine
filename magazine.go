@@ -1,17 +1,6 @@
-package main
+package magazine
 
-import (
-	"fmt"
-	"io/ioutil"
-)
-
-func main() {
-	config, err := Load("config.yml")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(config)
-}
+import "io/ioutil"
 
 // Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.
 // Environment variables can be used to override key values.

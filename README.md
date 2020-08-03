@@ -17,7 +17,7 @@ package main
 import (
 	"fmt"
 
-    "github.com/eastrocky/magazine"
+	"github.com/eastrocky/magazine"
 )
 
 func main() {
@@ -53,7 +53,7 @@ package main
 import (
 	"fmt"
 
-    "github.com/eastrocky/magazine"
+	"github.com/eastrocky/magazine"
 )
 
 func main() {

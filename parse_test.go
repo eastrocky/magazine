@@ -6,33 +6,6 @@ import (
 	"testing"
 )
 
-func TestMapYaml(t *testing.T) {
-	var (
-		data = `---
-title: Good Reads
-volume: 2
-price: 4.99
-author:
-  name: John Doe
-  address: 123 Fake Street
-`
-		expectedMap = map[string]interface{}{
-			"title":  "Good Reads",
-			"volume": 2,
-			"price":  4.99,
-			"author": map[string]interface{}{
-				"name":    "John Doe",
-				"address": "123 Fake Street",
-			},
-		}
-	)
-
-	actualMap := make(map[string]interface{})
-	mapYaml([]byte(data), actualMap)
-
-	assertEqual(t, expectedMap, actualMap)
-}
-
 func TestFlattenMap(t *testing.T) {
 	var (
 		nestedMap = map[string]interface{}{

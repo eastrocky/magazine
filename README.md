@@ -26,6 +26,8 @@ func main() {
 	fmt.Println(config["application.version"])
 }
 ```
+
+**output**
 > 1.0
 
 ## Override Variables
@@ -37,7 +39,7 @@ application:
   version: 1.0
 ```
 
-**Shell**
+**shell**
 ```sh
 export APPLICATION_VERSION=2.0
 ```
@@ -58,4 +60,6 @@ func main() {
 	fmt.Println(config["application.version"])
 }
 ```
+
+**output**
 > 2.0

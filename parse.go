@@ -1,21 +1,10 @@
 package magazine
 
 import (
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
-
-	"gopkg.in/yaml.v3"
 )
-
-func loadFile(filename string) ([]byte, error) {
-	return ioutil.ReadFile(filename)
-}
-
-func mapYaml(data []byte, m map[string]interface{}) error {
-	return yaml.Unmarshal(data, &m)
-}
 
 func flattenMap(nested map[string]interface{}) (flattened map[string]interface{}) {
 	m := make(map[string]interface{})

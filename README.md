@@ -16,10 +16,12 @@ package main
 
 import (
 	"fmt"
+
+    "github.com/eastrocky/magazine"
 )
 
 func main() {
-	config, err := Load("config.yml")
+	config, err := magazine.Load("config.yml")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -50,10 +52,12 @@ package main
 
 import (
 	"fmt"
+
+    "github.com/eastrocky/magazine"
 )
 
 func main() {
-	config, err := Load("config.yml")
+	config, err := magazine.Load("config.yml")
 	if err != nil {
 		fmt.Println(err)
 	}

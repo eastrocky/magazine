@@ -11,7 +11,7 @@ func Load(filename string) (map[string]interface{}, error) {
 		return config, err
 	}
 	mapYaml(content, config)
-	flattenMap(config)
+	config = flattenMap(config)
 	applyEnv(config)
 	return config, nil
 }

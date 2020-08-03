@@ -1,4 +1,4 @@
-module github.com/eastrocky/zine
+module github.com/eastrocky/magazine
 
 go 1.14
 

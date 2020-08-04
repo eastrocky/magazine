@@ -15,8 +15,8 @@ type Magazine struct {
 // Returns the zero value when key is not set.
 func (m *Magazine) GetBool(key string) bool {
 	var defaultBool bool
-	v, ok := m.config[key]
-	if ok {
+	v, set := m.config[key]
+	if set {
 		switch v.(type) {
 		case bool:
 			defaultBool = v.(bool)
@@ -29,8 +29,8 @@ func (m *Magazine) GetBool(key string) bool {
 // Returns the zero value when key is not set.
 func (m *Magazine) GetFloat64(key string) float64 {
 	var defaultFloat64 float64
-	v, ok := m.config[key]
-	if ok {
+	v, set := m.config[key]
+	if set {
 		switch v.(type) {
 		case float64:
 			defaultFloat64 = v.(float64)
@@ -43,8 +43,8 @@ func (m *Magazine) GetFloat64(key string) float64 {
 // Returns the zero value when key is not set.
 func (m *Magazine) GetInt(key string) int {
 	var value int
-	v, ok := m.config[key]
-	if ok {
+	v, set := m.config[key]
+	if set {
 		switch v.(type) {
 		case int:
 			value = v.(int)
@@ -57,8 +57,8 @@ func (m *Magazine) GetInt(key string) int {
 // Returns the zero value when key is not set.
 func (m *Magazine) GetString(key string) string {
 	var value string
-	v, ok := m.config[key]
-	if ok {
+	v, set := m.config[key]
+	if set {
 		switch v.(type) {
 		case string:
 			value = v.(string)

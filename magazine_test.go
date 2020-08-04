@@ -7,10 +7,10 @@ import (
 func TestLoad(t *testing.T) {
 	var (
 		magazine, _     = Load("config.yml")
-		expectedBool    = true
-		expectedFloat64 = 1.0
-		expectedInt     = 1
-		expectedString  = "string"
+		expectedBool    = bool(true)
+		expectedFloat64 = float64(1.0)
+		expectedInt     = int(1)
+		expectedString  = string("string")
 	)
 	assertEqual(t, expectedBool, magazine.GetBool("bool"))
 	assertEqual(t, expectedFloat64, magazine.GetFloat64("float64"))

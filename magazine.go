@@ -32,6 +32,8 @@ func Load(filename string) (*Magazine, error) {
 		return magazine, err
 	}
 
+	magazine.config = config
+
 	return magazine, nil
 }
 

@@ -14,57 +14,57 @@ type Magazine struct {
 // GetBool returns the bool value at key.
 // Returns the zero value when key is not set.
 func (m *Magazine) GetBool(key string) bool {
-	var defaultBool bool
 	v, set := m.config[key]
 	if set {
 		switch v.(type) {
 		case bool:
-			defaultBool = v.(bool)
+			return v.(bool)
 		}
 	}
+	var defaultBool bool
 	return defaultBool
 }
 
 // GetFloat64 returns the float64 value at key.
 // Returns the zero value when key is not set.
 func (m *Magazine) GetFloat64(key string) float64 {
-	var defaultFloat64 float64
 	v, set := m.config[key]
 	if set {
 		switch v.(type) {
 		case float64:
-			defaultFloat64 = v.(float64)
+			return v.(float64)
 		}
 	}
+	var defaultFloat64 float64
 	return defaultFloat64
 }
 
 // GetInt returns the int value at key.
 // Returns the zero value when key is not set.
 func (m *Magazine) GetInt(key string) int {
-	var value int
 	v, set := m.config[key]
 	if set {
 		switch v.(type) {
 		case int:
-			value = v.(int)
+			return v.(int)
 		}
 	}
-	return value
+	var defaultInt int
+	return defaultInt
 }
 
 // GetString returns the string value at key.
 // Returns the zero value when key is not set.
 func (m *Magazine) GetString(key string) string {
-	var value string
 	v, set := m.config[key]
 	if set {
 		switch v.(type) {
 		case string:
-			value = v.(string)
+			return v.(string)
 		}
 	}
-	return value
+	var defaultString string
+	return defaultString
 }
 
 // Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.

@@ -2,7 +2,6 @@ package magazine
 
 import (
 	"os"
-	"reflect"
 	"testing"
 )
 
@@ -60,11 +59,4 @@ func TestApplyEnv(t *testing.T) {
 	applyEnv(actualMap)
 
 	assertEqual(t, expectedMap, actualMap)
-}
-
-func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
-	t.Helper()
-	if !reflect.DeepEqual(expected, actual) {
-		t.Errorf("\nExpected:\t%v\nActual:\t\t%v\n", expected, actual)
-	}
 }

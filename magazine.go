@@ -11,6 +11,30 @@ type Magazine struct {
 	config map[string]interface{}
 }
 
+// Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.
+// Environment variables can be used to override key values.
+func Load(filename string) (*Magazine, error) {
+	config := make(map[string]interface{})
+	magazine := &Magazine{
+		config: config,
+	}
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return magazine, err
+	}
+
+	if err := yaml.Unmarshal(content, &config); err != nil {
+		return magazine, err
+	}
+
+	config = flattenMap(config)
+	if err := applyEnv(config); err != nil {
+		return magazine, err
+	}
+
+	return magazine, nil
+}
+
 // GetBool returns the bool value at key.
 // Returns the zero value when key is not set.
 func (m *Magazine) GetBool(key string) bool {
@@ -65,28 +89,4 @@ func (m *Magazine) GetString(key string) string {
 	}
 	var defaultString string
 	return defaultString
-}
-
-// Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.
-// Environment variables can be used to override key values.
-func Load(filename string) (*Magazine, error) {
-	config := make(map[string]interface{})
-	magazine := &Magazine{
-		config: config,
-	}
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return magazine, err
-	}
-
-	if err := yaml.Unmarshal(content, &config); err != nil {
-		return magazine, err
-	}
-
-	config = flattenMap(config)
-	if err := applyEnv(config); err != nil {
-		return magazine, err
-	}
-
-	return magazine, nil
 }

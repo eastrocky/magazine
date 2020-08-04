@@ -2,7 +2,8 @@ author: eastrocky
 application:
   name: magazine
   version: 1.0
-bool: true
-float64: 1.0
-int: 1
-string: "string"
+types:
+  bool: true
+  float64: 1.0
+  int: 1
+  string: "string"

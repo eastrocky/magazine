@@ -12,8 +12,8 @@ func TestLoad(t *testing.T) {
 		expectedInt     = int(1)
 		expectedString  = string("string")
 	)
-	assertEqual(t, expectedBool, magazine.GetBool("bool"))
-	assertEqual(t, expectedFloat64, magazine.GetFloat64("float64"))
-	assertEqual(t, expectedInt, magazine.GetInt("int"))
-	assertEqual(t, expectedString, magazine.GetString("string"))
+	assertEqual(t, expectedBool, magazine.GetBool("types.bool"))
+	assertEqual(t, expectedFloat64, magazine.GetFloat64("types.float64"))
+	assertEqual(t, expectedInt, magazine.GetInt("types.int"))
+	assertEqual(t, expectedString, magazine.GetString("types.string"))
 }

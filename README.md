@@ -21,11 +21,11 @@ import (
 )
 
 func main() {
-	config, err := magazine.Load("config.yml")
+	mag, err := magazine.Load("config.yml")
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(config["application.version"])
+	fmt.Println(mag.GetFloat64("application.version"))
 }
 ```
 
@@ -57,11 +57,11 @@ import (
 )
 
 func main() {
-	config, err := magazine.Load("config.yml")
+	mag, err := magazine.Load("config.yml")
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(config["application.version"])
+	fmt.Println(mag.GetFloat64("application.version"))
 }
 ```
 

@@ -1,6 +1,7 @@
 package magazine
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"gopkg.in/yaml.v3"
@@ -13,7 +14,7 @@ type Magazine struct {
 
 // Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.
 // Environment variables can be used to override key values.
-func Load(filename string) (*Magazine, error) {
+func Load(filename string, i ...interface{}) (*Magazine, error) {
 	config := make(map[string]interface{})
 	magazine := &Magazine{
 		config: config,
@@ -33,6 +34,17 @@ func Load(filename string) (*Magazine, error) {
 	}
 
 	magazine.config = config
+
+	if len(i) > 0 {
+		bytes, err := yaml.Marshal(expand(config))
+		if err != nil {
+			return magazine, err
+		}
+
+		fmt.Println(string(bytes))
+		err = yaml.Unmarshal(bytes, i[0])
+		return magazine, err
+	}
 
 	return magazine, nil
 }

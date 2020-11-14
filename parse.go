@@ -55,6 +55,43 @@ func applyEnv(m map[string]interface{}) error {
 	return nil
 }
 
+func expand(value map[string]interface{}) map[string]interface{} {
+	return expandPrefixed(value, "")
+}
+
+func expandPrefixed(value map[string]interface{}, prefix string) map[string]interface{} {
+	m := make(map[string]interface{})
+	expandPrefixedToResult(value, prefix, m)
+	return m
+}
+
+func expandPrefixedToResult(value map[string]interface{}, prefix string, result map[string]interface{}) {
+	if prefix != "" {
+		prefix += "."
+	}
+	for k, val := range value {
+		if !strings.HasPrefix(k, prefix) {
+			continue
+		}
+
+		key := k[len(prefix):]
+		idx := strings.Index(key, ".")
+		if idx != -1 {
+			key = key[:idx]
+		}
+		if _, ok := result[key]; ok {
+			continue
+		}
+		if idx == -1 {
+			result[key] = val
+			continue
+		}
+
+		// It contains a period, so it is a more complex structure
+		result[key] = expandPrefixed(value, k[:len(prefix)+len(key)])
+	}
+}
+
 func mapBool(m map[string]interface{}, k string, v string) error {
 	converted, err := strconv.ParseBool(v)
 	if err != nil {

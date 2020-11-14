@@ -30,6 +30,31 @@ func TestFlattenMap(t *testing.T) {
 	assertEqual(t, expectedMap, actualMap)
 }
 
+func TestNestMap(t *testing.T) {
+	var (
+		flattenedMap = map[string]interface{}{
+			"title":          "Good Reads",
+			"volume":         2,
+			"price":          4.99,
+			"author.name":    "John Doe",
+			"author.address": "123 Fake Street",
+		}
+		expectedMap = map[string]interface{}{
+			"title":  "Good Reads",
+			"volume": 2,
+			"price":  4.99,
+			"author": map[string]interface{}{
+				"name":    "John Doe",
+				"address": "123 Fake Street",
+			},
+		}
+	)
+
+	actualMap := expand(flattenedMap)
+
+	assertEqual(t, expectedMap, actualMap)
+}
+
 func TestApplyEnv(t *testing.T) {
 	var (
 		actualMap = map[string]interface{}{

@@ -11,12 +11,12 @@ type Magazine struct {
 	config map[string]interface{}
 }
 
-// Load returns a flattened map[string]interface{} representing contents of the file located at `filename`.
+// Load returns a flattened map[string]interface{} representing contents of the file located at `filepath`.
 // Environment variables can be used to override key values.
-func Load(filename string, i ...interface{}) (*Magazine, error) {
+func Load(filepath string, i ...interface{}) (*Magazine, error) {
 	config := make(map[string]interface{})
 	magazine := &Magazine{}
-	content, err := ioutil.ReadFile(filename)
+	content, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		return magazine, err
 	}
@@ -42,6 +42,12 @@ func Load(filename string, i ...interface{}) (*Magazine, error) {
 	}
 
 	return magazine, nil
+}
+
+// Eject writes the loaded configuration to the filepath
+func (m *Magazine) Eject(filepath string) error {
+
+	return nil
 }
 
 // GetBool returns the bool value at key.

@@ -6,4 +6,4 @@ types:
   bool: true
   float64: 1.0
   int: 1
-  string: "string"
+  string: "this is a test of a magazine config"

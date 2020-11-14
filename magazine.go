@@ -44,10 +44,14 @@ func Load(filepath string, i ...interface{}) (*Magazine, error) {
 	return magazine, nil
 }
 
-// Eject writes the loaded configuration to the filepath
-func (m *Magazine) Eject(filepath string) error {
+// Eject writes configurations loaded by magazine to file.
+func Eject(filepath string, config interface{}) error {
+	bytes, err := yaml.Marshal(config)
+	if err != nil {
+		return err
+	}
 
-	return nil
+	return ioutil.WriteFile(filepath, bytes, 0644)
 }
 
 // GetBool returns the bool value at key.

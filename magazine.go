@@ -1,7 +1,6 @@
 package magazine
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"gopkg.in/yaml.v3"
@@ -16,9 +15,7 @@ type Magazine struct {
 // Environment variables can be used to override key values.
 func Load(filename string, i ...interface{}) (*Magazine, error) {
 	config := make(map[string]interface{})
-	magazine := &Magazine{
-		config: config,
-	}
+	magazine := &Magazine{}
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return magazine, err
@@ -41,9 +38,7 @@ func Load(filename string, i ...interface{}) (*Magazine, error) {
 			return magazine, err
 		}
 
-		fmt.Println(string(bytes))
-		err = yaml.Unmarshal(bytes, i[0])
-		return magazine, err
+		return magazine, yaml.Unmarshal(bytes, i[0])
 	}
 
 	return magazine, nil

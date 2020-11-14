@@ -28,7 +28,7 @@ func Load(filename string, i ...interface{}) (*Magazine, error) {
 		return magazine, err
 	}
 
-	config = flattenMap(config)
+	config = flatten(config)
 	if err := applyEnv(config); err != nil {
 		return magazine, err
 	}

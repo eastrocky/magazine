@@ -25,7 +25,7 @@ func TestFlattenMap(t *testing.T) {
 		}
 	)
 
-	actualMap := flattenMap(nestedMap)
+	actualMap := flatten(nestedMap)
 
 	assertEqual(t, expectedMap, actualMap)
 }

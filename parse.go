@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func flattenMap(nested map[string]interface{}) (flattened map[string]interface{}) {
+func flatten(nested map[string]interface{}) (flattened map[string]interface{}) {
 	m := make(map[string]interface{})
 	for k, v := range nested {
 		assign(m, k, v)

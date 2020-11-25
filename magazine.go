@@ -3,6 +3,7 @@ package magazine
 import (
 	"io/ioutil"
 
+	"github.com/eastrocky/magazine/bellows"
 	"gopkg.in/yaml.v3"
 )
 
@@ -33,7 +34,7 @@ func Load(filepath string, i ...interface{}) (*Magazine, error) {
 	magazine.config = config
 
 	if len(i) > 0 {
-		bytes, err := yaml.Marshal(expand(config))
+		bytes, err := yaml.Marshal(bellows.Expand(config))
 		if err != nil {
 			return magazine, err
 		}

@@ -3,6 +3,8 @@ package magazine
 import (
 	"os"
 	"testing"
+
+	"github.com/eastrocky/magazine/bellows"
 )
 
 func TestFlattenMap(t *testing.T) {
@@ -50,7 +52,7 @@ func TestNestMap(t *testing.T) {
 		}
 	)
 
-	actualMap := expand(flattenedMap)
+	actualMap := bellows.Expand(flattenedMap)
 
 	assertEqual(t, expectedMap, actualMap)
 }

@@ -1,170 +1,123 @@
 # Magazine
 
-## Eject
+Define arbitrary structures in Go and eject them to Yaml files.
 
-Define arbitrary maps and eject them to yaml files.
-
-**main.go**
+📄 *main.go*
 ```go
-package main
-
-import "github.com/eastrocky/magazine"
-
-type Database struct {
-	Hostname string
-	Login    struct {
-		Username string
-		Password string
-	}
-	Tables []string
-}
-
-func main() {
-	defaultConfig := &Database{
-		Hostname: "localhost",
-		Login: struct {
-			Username string
-			Password string
-		}{
-			Username: "admin",
-		},
-		Tables: []string{
-			"users",
-			"orders",
-			"audit",
-		},
-	}
-
-	magazine.Eject("config.yml", defaultConfig)
-}
-
+magazine.Eject("config.yml", Config{
+	Database{
+		Username: "test-user",
+	},
+})
 ```
 
-**config.yml**
-```yml
-hostname: localhost
-login:
-    username: admin
+📄 *config.yml*
+```yaml
+database:
+    username: test-user
     password: ""
-tables:
-    - users
-    - orders
-    - audit
 
 ```
 
-This records the shape, fields, and types that make up the ejected struct. Ejected files can serve as documentation and also be used to quickly swap configurations using the `Load` method.
+The password string initializes to its default value since we did not initialize one. Later, we will demonstrate how Magazine can inject secrets from environment variables so that credentials are not stored in source code.
 
-## Load
+Stored in our source code instead are self-describing serializations of structures ejected from Magazine. Eject multiple structs to create profiles.
 
-Load binds previously ejected magazines back into structures.
-
-**config.yml**
-```yml
-hostname: localhost
-login:
-    username: admin
-    password: ""
-tables:
-    - users
-    - orders
-    - audit
-
-```
-
-**main.go**
+📄 *main.go*
 ```go
-package main
+magazine.Eject("development.yml", Config{
+	Database{
+		Username: "development-user",
+	},
+	Memory{
+		GB: 1,
+	},
+	CPU{
+		Cores: 4,
+	},
+})
 
-import (
-	"fmt"
-
-	"github.com/eastrocky/magazine"
-)
-
-type Database struct {
-	Hostname string
-	Login    struct {
-		Username string
-		Password string
-	}
-	Tables []string
-}
-
-func main() {
-	config := &Database{}
-
-	magazine.Load("config.yml", config)
-	fmt.Println("Username:", config.Login.Username)
-}
+magazine.Eject("production.yml", Config{
+	Database{
+		Username: "production-user",
+	},
+	Memory{
+		GB: 128,
+	},
+	CPU{
+		Cores: 64,
+	},
+})
 ```
 
-**shell**
+📄 *development.yml*
+```yaml
+database:
+    username: development-user
+    password: ""
+memory:
+    gb: 1
+cpu:
+    cores: 4
+
+```
+
+📄 *production.yml*
+```yaml
+database:
+    username: production-user
+    password: ""
+memory:
+    gb: 128
+cpu:
+    cores: 64
+
+```
+
+Quickly load empty structures with contents of ejected Magazine files. 
+
+📄 *main.go*
+```go
+config := &Config{}
+magazine.Load("production.yml", config)
+fmt.Println(config.CPU.Cores)
+```
+
+📄 *standard out*
 ```shell
 $ go run main.go
-Username: admin
+64
 ```
 
-When structures are being loaded, Magazine can resolve values from the environment.
+The ejected files can serve as documentation and presets.
 
-## Environment Variables
+Magazine allows for the injection of secrets at load time through environment variables. First, initial values are provided inside a struct. Next, values at relative key paths in the Yaml object will be mapped to the `config` struct. Finally, Magazine searches for environment variables with matching key paths (all caps; underscore delimited;) and loads those into the `config` struct when set.
 
-Environment variables can be used to override values loaded at particular key paths.
+This table demonstrates the various locations, key paths, and precedence of our Config's "*database password*".
 
-This can be useful for resolving secrets at runtime by discovering values set in the environment. This example loads a magazine with an empty password and sets its value using the environment instead.
+| Location    | Precedence | Relative Key Path          |
+| ----------- | ---------- | -------------------------- |
+| Go          | 3          | `config.Database.Password` |
+| Yaml        | 2          | `database.password`        |
+| Environment | 1          | `DATABASE_PASSWORD`        |
 
-**config.yml**
-```yml
-hostname: localhost
-login:
-    username: admin
-    password: ""
-tables:
-    - users
-    - orders
-    - audit
+Setting the password via an environment variable called `DATABASE_PASSWORD` allows us to specify the password at runtime and outside source code. Environment variables will take the highest precedence if set.
 
-```
+Magazine only attempts to resolve variables when loading. Changing environment variables will not reflect in previously loaded structs until they have been loaded again.
 
-**shell**
-```shell
-$ env
-LOGIN_PASSWORD=hunter2
-```
-
-**main.go**
+📄 *main.go*
 ```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/eastrocky/magazine"
-)
-
-type Database struct {
-	Hostname string
-	Login    struct {
-		Username string
-		Password string
-	}
-	Tables []string
-}
-
-func main() {
-	config := &Database{}
-
-	magazine.Load("config.yml", config)
-    fmt.Println("Username:", config.Login.Username)
-    fmt.Println("Password:", config.Login.Password)
-}
+config := &Config{}
+magazine.Load("production.yml", config)
+fmt.Println("Password:", config.Database.Password)
 ```
 
-**shell**
+📄 *standard out*
 ```shell
 $ go run main.go
-Username: admin
+Password: 
+
+$ DATABASE_PASSWORD=hunter2 go run main.go
 Password: hunter2
-```
 
-Magazine finds a variable matching the flattened key path `login.password` at `LOGIN_PASSWORD` and loads it into the structure instead.
+```

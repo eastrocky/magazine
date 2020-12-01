@@ -103,8 +103,6 @@ This table demonstrates the various locations, key paths, and precedence of our 
 
 Setting the password via an environment variable called `DATABASE_PASSWORD` allows us to specify the password at runtime and outside source code. Environment variables will take the highest precedence if set.
 
-Magazine only attempts to resolve variables when loading. Changing environment variables will not reflect in previously loaded structs until they have been loaded again.
-
 📄 *main.go*
 ```go
 config := &Config{}
@@ -121,3 +119,5 @@ $ DATABASE_PASSWORD=hunter2 go run main.go
 Password: hunter2
 
 ```
+
+Magazine only attempts to resolve variables when loading. Changing environment variables will not reflect in previously loaded structs until they have been loaded again.

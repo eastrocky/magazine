@@ -108,7 +108,7 @@ The ejected files can serve as documentation and presets.
 
 ## Inject
 
-Magazine allows you to apply overrides to individual fields using environment variables. This is useful for loading sensitive values such as passwords, enabling you to provide the value only when needed instead of storing it in source code or YAML file.
+Magazine allows you to apply overrides to individual fields using environment variables. This enables you to provide the value only when needed instead of storing it in source code or YAML file.
 
 Values from the environment are resolved by the variable's key path. If the environment contains a variable named after a matching YAML key path, that value is used instead. The environment variable must also use the common naming convention of capital letters delimited by underscores.
 

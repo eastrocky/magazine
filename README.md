@@ -86,7 +86,7 @@ cpu:
 
 ```
 
-Later we will see how we can inject sensitive values like passwords using environment variables.
+The ejected files can serve as documentation and presets. Later we will see how we can inject sensitive values like passwords using environment variables.
 
 ## Load
 Magazine can bind matching values from YAML files into pre-initialized structures. Those values become accessible to the rest of your code from the structure itself.
@@ -103,8 +103,6 @@ fmt.Println(config.CPU.Cores)
 $ go run main.go
 64
 ```
-
-The ejected files can serve as documentation and presets.
 
 ## Inject
 

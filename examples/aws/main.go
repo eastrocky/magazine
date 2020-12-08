@@ -27,6 +27,6 @@ func main() {
 		Credentials: credentials.NewStaticCredentials(c.AWS.AccessKeyID, c.AWS.SecretAccessKey, c.AWS.SessionToken),
 	})
 
-	// // do something...
+	// do something...
 	_, _ = sess, err
 }

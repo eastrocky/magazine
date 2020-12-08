@@ -9,7 +9,7 @@ import (
 )
 
 // go test -tags magazine ./...
-func TestEjectAWS(t *testing.T) {
+func TestEjectConfig(t *testing.T) {
 	magazine.Eject("config.yml", &Config{
 		AWS: AWS{
 			Region: "us-west-2", // default region

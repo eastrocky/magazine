@@ -1,0 +1,10 @@
+aws:
+    region: us-west-2
+    access:
+        key:
+            id: ""
+    secret:
+        access:
+            key: ""
+    session:
+        token: ""

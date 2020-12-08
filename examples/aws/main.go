@@ -12,20 +12,10 @@ type Config struct {
 }
 
 type AWS struct {
-	Region string
-	Access struct {
-		Key struct {
-			ID string
-		}
-	}
-	Secret struct {
-		Access struct {
-			Key string
-		}
-	}
-	Session struct {
-		Token string
-	}
+	Region          string
+	AccessKeyID     string `yaml:"ACCESS_KEY_ID"`
+	SecretAccessKey string `yaml:"SECRET_ACCESS_KEY"`
+	SessionToken    string `yaml:"SESSION_TOKEN"`
 }
 
 func main() {
@@ -34,9 +24,9 @@ func main() {
 
 	sess, err := session.NewSession(&aws.Config{
 		Region:      aws.String(c.AWS.Region),
-		Credentials: credentials.NewStaticCredentials(c.AWS.Access.Key.ID, c.AWS.Secret.Access.Key, c.AWS.Session.Token),
+		Credentials: credentials.NewStaticCredentials(c.AWS.AccessKeyID, c.AWS.SecretAccessKey, c.AWS.SessionToken),
 	})
 
-	// do something...
+	// // do something...
 	_, _ = sess, err
 }

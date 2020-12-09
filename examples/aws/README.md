@@ -31,7 +31,7 @@ func main() {
 ## Default Region
 We can set a default region when we "Eject" our Magazine.
 
-When this `TestEjectConfig` test executes, it will write a default Magazine with `us-west-2` as the default region. This region can be overridden at load time by setting the environment variable `AWS_REGION`.
+When this `TestEjectConfig` test executes, it will write a Magazine with `us-west-2` as the default region. This region can be overridden at load time by setting the environment variable `AWS_REGION`.
 
 ```go
 func TestEjectConfig(t *testing.T) {

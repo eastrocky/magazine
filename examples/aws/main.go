@@ -22,11 +22,8 @@ func main() {
 	c := &Config{}
 	magazine.Load("config.yml", c)
 
-	sess, err := session.NewSession(&aws.Config{
+	session.NewSession(&aws.Config{
 		Region:      aws.String(c.AWS.Region),
 		Credentials: credentials.NewStaticCredentials(c.AWS.AccessKeyID, c.AWS.SecretAccessKey, c.AWS.SessionToken),
 	})
-
-	// do something...
-	_, _ = sess, err
 }

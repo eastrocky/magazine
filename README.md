@@ -1,9 +1,6 @@
 # Magazine
 Magazine is a utility for serializing and deserializing native structures to and from YAML with field level injection.
 
-## Examples
-For more examples, be sure to check out the 🗄 [eastrocky/magazine-examples](https://github.com/eastrocky/magazine-examples) repo.
-
 ## Eject
 Creating a new Magazine is as easy as passing your structure to Eject.
 
